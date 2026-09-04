@@ -1,0 +1,29 @@
+{
+  "name": "identity-cms",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/identity-cms/src",
+  "targets": {
+    "develop": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/identity-cms",
+        "command": "bun run develop"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/identity-cms",
+        "command": "bun run build"
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/identity-cms",
+        "command": "bun run start"
+      }
+    }
+  }
+}
