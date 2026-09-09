@@ -138,16 +138,36 @@ export function App({ convexUrl, strapiUrl, apiUrl, landingUrl }: AppProps) {
   return (
     <div className={styles.shell}>
       <header className={styles.topbar}>
-        <span className={styles.identity}>Signed in as {username}</span>
+        <span className={styles.brand}>
+          <span className={styles.brandMark} aria-hidden="true">
+            S
+          </span>
+          Smith
+        </span>
         {role === 'admin' && (
-          <button
-            type="button"
-            className={styles.navButton}
-            onClick={() => setView(view === 'audit' ? 'chat' : 'audit')}
-          >
-            {view === 'audit' ? 'Back to chat' : 'Admin audit'}
-          </button>
+          <nav className={styles.viewSwitch} aria-label="Primary">
+            <button
+              type="button"
+              aria-pressed={view === 'chat'}
+              onClick={() => setView('chat')}
+            >
+              Chat
+            </button>
+            <button
+              type="button"
+              aria-pressed={view === 'audit'}
+              onClick={() => setView('audit')}
+            >
+              Admin audit
+            </button>
+          </nav>
         )}
+        <span className={styles.identity}>
+          <span className={styles.avatar} aria-hidden="true">
+            {username.charAt(0).toUpperCase()}
+          </span>
+          <span className={styles.identityName}>{username}</span>
+        </span>
         <button
           type="button"
           className={styles.navButton}

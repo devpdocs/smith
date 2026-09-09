@@ -20,33 +20,89 @@ const dashboardUrl =
   <body data-strapi-url={strapiUrl} data-dashboard-url={dashboardUrl}>
     <main class="landing">
       <section class="hero">
-        <h1>Smith AI SaaS</h1>
+        <p class="brand"><span class="brand-mark" aria-hidden="true">S</span> Smith</p>
+        <h1>Your multi-model workspace</h1>
         <p class="tagline">
-          Your AI-powered workspace with per-user conversation history,
-          role-based audit, and a clean, focused chat experience.
+          One place for every session — per-user conversation history,
+          per-session models, and role-based audit. Sign in to continue
+          where you left off.
         </p>
       </section>
       <slot />
     </main>
 
     <style is:global>
+      :root {
+        --smith-paper: #f7f5f0;
+        --smith-surface: #ffffff;
+        --smith-ink: #1a1917;
+        --smith-ink-2: #5c5750;
+        --smith-ink-3: #6e6960;
+        --smith-line: #e7e1d6;
+        --smith-accent: #b15536;
+        --smith-accent-strong: #96431f;
+        --smith-accent-soft: #f9e9e0;
+        color-scheme: light;
+      }
+      *, *::before, *::after { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--smith-paper);
+        color: var(--smith-ink);
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.5;
+        caret-color: var(--smith-accent);
+      }
+      ::selection { background: var(--smith-accent-soft); }
+      :focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px rgb(177 85 54 / 0.22);
+        border-radius: 6px;
+      }
       .landing {
-        max-width: 42rem;
-        margin: 3rem auto;
-        padding: 0 1rem;
-        font-family: system-ui, -apple-system, sans-serif;
+        max-width: 28rem;
+        margin: 0 auto;
+        padding: 4rem 1.25rem 3rem;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        font-weight: 700;
+        font-size: 0.95rem;
+        margin: 0 0 1.5rem;
+      }
+      .brand-mark {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 8px;
+        background: var(--smith-ink);
+        color: #faf9f6;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        font-weight: 800;
       }
       .hero h1 {
-        margin-bottom: 0.25rem;
+        margin: 0 0 0.5rem;
+        font-size: 1.9rem;
+        letter-spacing: -0.025em;
+        line-height: 1.15;
+        text-wrap: balance;
       }
       .tagline {
-        color: #444;
-        line-height: 1.5;
+        color: var(--smith-ink-2);
+        line-height: 1.6;
+        margin: 0 0 1.75rem;
+        font-size: 0.95rem;
       }
       .panel {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 1.5rem;
+        background: var(--smith-surface);
+        border: 1px solid var(--smith-line);
+        border-radius: 18px;
+        padding: 1.75rem;
+        box-shadow: 0 1px 2px rgb(26 25 23 / 0.06), 0 8px 24px -12px rgb(26 25 23 / 0.18);
       }
       .field {
         margin-bottom: 1rem;
@@ -54,21 +110,58 @@ const dashboardUrl =
         flex-direction: column;
       }
       .field label {
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.35rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--smith-ink-2);
       }
       .field input {
-        padding: 0.5rem;
+        padding: 0.6rem 0.8rem;
+        border: 1px solid var(--smith-line);
+        border-radius: 10px;
+        font: inherit;
+        background: var(--smith-surface);
       }
+      .field input:focus {
+        border-color: var(--smith-accent);
+        box-shadow: 0 0 0 3px rgb(177 85 54 / 0.22);
+        outline: none;
+      }
+      .field input::placeholder { color: var(--smith-ink-3); }
       button {
-        padding: 0.5rem 1.25rem;
+        font: inherit;
         cursor: pointer;
       }
+      #submit {
+        width: 100%;
+        padding: 0.65rem 1.25rem;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        background: var(--smith-accent);
+        color: #fff;
+        font-weight: 600;
+        margin-top: 0.25rem;
+        transition: background-color 180ms ease-out;
+      }
+      #submit:hover { background: var(--smith-accent-strong); }
       .error {
         color: #b00020;
+        background: #fdf0f1;
+        border: 1px solid #f3c2c7;
+        border-radius: 10px;
+        padding: 0.7rem 0.9rem;
+        font-size: 0.85rem;
         margin-top: 0.75rem;
       }
       .auth-switch {
-        margin-top: 1rem;
+        margin: 1.1rem 0 0;
+        font-size: 0.88rem;
+        color: var(--smith-ink-2);
+        text-align: center;
+      }
+      .auth-switch a {
+        color: var(--smith-accent-strong);
+        font-weight: 600;
       }
     </style>
   </body>

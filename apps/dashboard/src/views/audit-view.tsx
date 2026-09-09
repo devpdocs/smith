@@ -128,7 +128,11 @@ export function AuditView({ apiUrl, token }: AuditViewProps) {
     <div className="audit-layout">
       <aside className="audit-users">
         <h2>Audit — admin only</h2>
-        {users === null && <p className="muted">Loading users…</p>}
+        {users === null && (
+          <div aria-label="Loading users">
+            <div className="skeleton" />
+          </div>
+        )}
         {usersError && (
           <p className="error" role="alert">
             {usersError}
@@ -143,6 +147,7 @@ export function AuditView({ apiUrl, token }: AuditViewProps) {
                 ? 'audit-user active'
                 : 'audit-user'
             }
+            aria-current={String(user.id) === selectedUserId ? 'true' : undefined}
             onClick={() => setSelectedUserId(String(user.id))}
           >
             {user.username}
@@ -154,7 +159,9 @@ export function AuditView({ apiUrl, token }: AuditViewProps) {
         <h3>Conversations</h3>
         {!selectedUserId && <p className="muted">Select a user to view.</p>}
         {conversations === null && selectedUserId && (
-          <p className="muted">Loading…</p>
+          <div aria-label="Loading conversations">
+            <div className="skeleton" />
+          </div>
         )}
         {conversationsError && (
           <p className="error" role="alert">
@@ -173,6 +180,7 @@ export function AuditView({ apiUrl, token }: AuditViewProps) {
                 ? 'audit-conv active'
                 : 'audit-conv'
             }
+            aria-current={conversation.id === selectedConversationId ? 'true' : undefined}
             onClick={() => setSelectedConversationId(conversation.id)}
           >
             <span className="conv-title">{conversation.title}</span>
@@ -190,7 +198,10 @@ export function AuditView({ apiUrl, token }: AuditViewProps) {
           <p className="muted">Select a conversation to read its messages.</p>
         )}
         {messages === null && selectedConversationId && (
-          <p className="muted">Loading messages…</p>
+          <div aria-label="Loading messages">
+            <div className="skeleton" />
+            <div className="skeleton" style={{ marginTop: '0.6rem' }} />
+          </div>
         )}
         {messagesError && (
           <p className="error" role="alert">
