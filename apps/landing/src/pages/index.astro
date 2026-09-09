@@ -1,0 +1,189 @@
+---
+const strapiUrl =
+  import.meta.env.PUBLIC_STRAPI_URL ?? 'http://localhost:1337';
+const dashboardUrl =
+  import.meta.env.PUBLIC_DASHBOARD_URL ?? 'http://localhost:4200';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smith AI SaaS</title>
+  </head>
+  <body data-strapi-url={strapiUrl} data-dashboard-url={dashboardUrl}>
+    <main class="landing">
+      <section class="hero">
+        <h1>Smith AI SaaS</h1>
+        <p class="tagline">
+          Your AI-powered workspace with per-user conversation history,
+          role-based audit, and a clean, focused chat experience.
+        </p>
+        <div class="auth-toggle" role="tablist" aria-label="Authentication mode">
+          <button
+            id="login-tab"
+            type="button"
+            class="auth-toggle-btn"
+            role="tab"
+            aria-selected="true"
+            data-mode="login"
+          >
+            Log in
+          </button>
+          <button
+            id="register-tab"
+            type="button"
+            class="auth-toggle-btn"
+            role="tab"
+            aria-selected="false"
+            data-mode="register"
+          >
+            Register
+          </button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <form id="auth-form" novalidate>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+          <div class="field" id="username-field" hidden>
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" required />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" required />
+          </div>
+          <button id="submit" type="submit">Submit</button>
+          <p id="error" class="error" role="alert" hidden></p>
+        </form>
+      </section>
+    </main>
+
+    <style>
+      .landing {
+        max-width: 42rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+      .hero h1 {
+        margin-bottom: 0.25rem;
+      }
+      .tagline {
+        color: #444;
+        line-height: 1.5;
+      }
+      .auth-toggle {
+        display: flex;
+        gap: 0.5rem;
+        margin: 1.5rem 0 1rem;
+      }
+      .auth-toggle-btn {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+      }
+      .panel {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 1.5rem;
+      }
+      .field {
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+      }
+      .field label {
+        margin-bottom: 0.25rem;
+      }
+      .field input {
+        padding: 0.5rem;
+      }
+      button {
+        padding: 0.5rem 1.25rem;
+        cursor: pointer;
+      }
+      .error {
+        color: #b00020;
+        margin-top: 0.75rem;
+      }
+    </style>
+
+    <script>
+      import { login, register } from '../lib/auth';
+
+      const body = document.body;
+      const strapiUrl = body.dataset.strapiUrl ?? 'http://localhost:1337';
+      const dashboardUrl =
+        body.dataset.dashboardUrl ?? 'http://localhost:4200';
+
+      /** Resolves a required element or throws, so types narrow to non-null. */
+      function must<T extends HTMLElement>(id: string): T {
+        const element = document.getElementById(id);
+        if (!element) {
+          throw new Error(`Expected #${id} to exist.`);
+        }
+        return element as T;
+      }
+
+      const form = must<HTMLFormElement>('auth-form');
+      const emailInput = must<HTMLInputElement>('email');
+      const usernameInput = must<HTMLInputElement>('username');
+      const usernameField = must<HTMLElement>('username-field');
+      const passwordInput = must<HTMLInputElement>('password');
+      const errorSlot = must<HTMLElement>('error');
+      const loginTab = must<HTMLButtonElement>('login-tab');
+      const registerTab = must<HTMLButtonElement>('register-tab');
+
+      type Mode = 'login' | 'register';
+      let mode: Mode = 'login';
+
+      function setMode(next: Mode) {
+        mode = next;
+        const isRegister = mode === 'register';
+        usernameField.hidden = !isRegister;
+        loginTab.setAttribute('aria-selected', String(!isRegister));
+        registerTab.setAttribute('aria-selected', String(isRegister));
+        errorSlot.hidden = true;
+        errorSlot.textContent = '';
+      }
+
+      loginTab.addEventListener('click', () => setMode('login'));
+      registerTab.addEventListener('click', () => setMode('register'));
+
+      form.addEventListener('submit', async (event: SubmitEvent) => {
+        event.preventDefault();
+        errorSlot.hidden = true;
+        errorSlot.textContent = '';
+
+        const identifier = emailInput.value.trim();
+        const password = passwordInput.value;
+        const result =
+          mode === 'login'
+            ? await login(strapiUrl, { identifier, password })
+            : await register(strapiUrl, {
+                username: usernameInput.value.trim(),
+                email: identifier,
+                password,
+              });
+
+        if (!result.ok) {
+          errorSlot.textContent = result.error ?? 'Something went wrong.';
+          errorSlot.hidden = false;
+          return;
+        }
+
+        // Pass the Strapi session access token to the dashboard via the URL
+        // fragment (F4). The dashboard reads it, persists it, then clears it.
+        const token = result.token ?? '';
+        window.location.assign(
+          `${dashboardUrl}${token ? `#token=${encodeURIComponent(token)}` : ''}`,
+        );
+      });
+    </script>
+  </body>
+</html>

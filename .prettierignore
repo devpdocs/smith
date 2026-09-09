@@ -4,5 +4,14 @@
 /.nx/cache
 /.nx/workspace-data
 .angular
-
 .nx/self-healing
+
+# Generated / build output
+**/dist
+**/build
+**/.astro
+**/.strapi
+**/.strapi-updater.json
+**/types/generated
+**/convex/_generated
+**/node_modules

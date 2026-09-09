@@ -36,6 +36,14 @@ export default [
               sourceTag: 'type:data',
               onlyDependOnLibsWithTags: ['type:data'],
             },
+            {
+              sourceTag: 'scope:mvp-shared',
+              onlyDependOnLibsWithTags: ['scope:mvp-shared'],
+            },
+            {
+              sourceTag: 'scope:app',
+              onlyDependOnLibsWithTags: ['scope:app', 'scope:mvp-shared'],
+            },
           ],
         },
       ],

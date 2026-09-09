@@ -11,8 +11,8 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "strapi": "strapi",
-    "upgrade": "npx @strapi/upgrade latest",
-    "upgrade:dry": "npx @strapi/upgrade latest --dry"
+    "upgrade": "bunx @strapi/upgrade latest",
+    "upgrade:dry": "bunx @strapi/upgrade latest --dry"
   },
   "dependencies": {
     "@strapi/database": "5.52.3",

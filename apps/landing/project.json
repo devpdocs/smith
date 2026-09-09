@@ -1,0 +1,37 @@
+{
+  "name": "landing",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/landing/src",
+  "tags": ["scope:app", "type:app"],
+  "targets": {
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/landing",
+        "command": "bunx astro dev"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/landing",
+        "command": "bunx astro build"
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/landing",
+        "command": "bunx astro preview"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/landing",
+        "command": "bunx astro check"
+      }
+    }
+  }
+}

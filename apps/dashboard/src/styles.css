@@ -1,0 +1,228 @@
+/* Global styles for the Smith AI SaaS dashboard (wireframes 2 and 3). */
+:root {
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  line-height: 1.5;
+  color: #1f2933;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.muted {
+  color: #7b8794;
+}
+
+.empty {
+  color: #7b8794;
+  font-style: italic;
+  padding: 0.75rem 0;
+}
+
+.error {
+  color: #b00020;
+  padding: 0.75rem 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ---- Chat view (wireframe 2) ---- */
+.chat-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 1rem;
+  height: calc(100vh - 56px);
+}
+
+.conversations {
+  border-right: 1px solid #e4e7eb;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.conversations-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.conversations-header h2 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.conversation {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+}
+
+.conversation.active {
+  background: #e4f0fa;
+  border-color: #c9e2f7;
+}
+
+.chat-pane {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.chat-empty {
+  margin: auto;
+  text-align: center;
+  color: #52606d;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e4e7eb;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.chat-header h3 {
+  margin: 0;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.message {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  max-width: 70%;
+}
+
+.message-user {
+  align-self: flex-end;
+  background: #cfe8ff;
+}
+
+.message-assistant {
+  align-self: flex-start;
+  background: #f0f2f5;
+}
+
+.message-role {
+  display: block;
+  font-size: 0.75rem;
+  color: #7b8794;
+  margin-bottom: 0.25rem;
+}
+
+.message p {
+  margin: 0;
+}
+
+.provider-deferred {
+  border: 1px dashed #cbd2d9;
+  background: transparent;
+  color: #52606d;
+}
+
+.composer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.composer input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+}
+
+.composer button {
+  padding: 0.5rem 1.25rem;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  background: #e4f0fa;
+}
+
+.composer button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---- Admin audit view (wireframe 3) ---- */
+.audit-layout {
+  display: grid;
+  grid-template-columns: 200px 240px 1fr;
+  gap: 1rem;
+  height: calc(100vh - 56px);
+}
+
+.audit-users,
+.audit-conversations {
+  border-right: 1px solid #e4e7eb;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.audit-users h2,
+.audit-conversations h3 {
+  font-size: 1rem;
+  margin-top: 0;
+}
+
+.audit-user,
+.audit-conv {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+}
+
+.audit-user.active,
+.audit-conv.active {
+  background: #e4f0fa;
+  border-color: #c9e2f7;
+}
+
+.conv-title {
+  display: block;
+  font-weight: 500;
+}
+
+.conv-meta {
+  display: block;
+  font-size: 0.75rem;
+  color: #7b8794;
+}
+
+.audit-reader {
+  padding: 1rem;
+  overflow-y: auto;
+}
