@@ -1,5 +1,19 @@
 {"message":"connected.","label":"vite","level":"info"}
 {"message":"Generated 1ms","label":"types","level":"info"}
 {"message":"connected.","label":"vite","level":"info"}
-{"message":" astro  v7.3.1 ready in 7831 ms\n┃ Local    http://localhost:4321/\n┃ Network  use --host to expose","label":"SKIP_FORMAT","level":"info"}
+{"message":" astro  v7.3.1 ready in 4688 ms\n┃ Local    http://localhost:4321/\n┃ Network  use --host to expose","label":"SKIP_FORMAT","level":"info"}
 {"message":"watching for file changes...","label":null,"level":"info"}
+{"message":"[301] / 3ms","label":null,"level":"info"}
+{"message":"[200] /login 56ms","label":null,"level":"info"}
+{"message":"[200] /register 20ms","label":null,"level":"info"}
+{"message":"[301] / 0ms","label":null,"level":"info"}
+{"message":"[200] /login 8ms","label":null,"level":"info"}
+{"message":"[301] / 0ms","label":null,"level":"info"}
+{"message":"[200] /login 7ms","label":null,"level":"info"}
+{"message":"[200] /login 7ms","label":null,"level":"info"}
+{"message":"[200] /login 7ms","label":null,"level":"info"}
+{"message":"[301] / 1ms","label":null,"level":"info"}
+{"message":"[301] / 0ms","label":null,"level":"info"}
+{"message":"[200] /login 7ms","label":null,"level":"info"}
+{"message":"[200] /register 6ms","label":null,"level":"info"}
+{"message":"[200] /register 7ms","label":null,"level":"info"}

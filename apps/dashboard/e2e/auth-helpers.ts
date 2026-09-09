@@ -19,13 +19,13 @@ export const SEEDED = {
   },
 };
 
-/** Logs in via the landing page (S1) and waits for the dashboard session. */
+/** Logs in via the landing login page (S1) and waits for the dashboard session. */
 export async function loginFromLanding(
   page: Page,
   email: string,
   password: string,
 ): Promise<void> {
-  await page.goto(`${URLS.landing}/`);
+  await page.goto(`${URLS.landing}/login`);
   await page.fill('#email', email);
   await page.fill('#password', password);
   await page.click('#submit');
@@ -33,15 +33,14 @@ export async function loginFromLanding(
   await expect(page.getByText(/Signed in as/)).toBeVisible();
 }
 
-/** Registers a brand-new user via the landing page (unique per run). */
+/** Registers a brand-new user via the landing register page (unique per run). */
 export async function registerFromLanding(
   page: Page,
   username: string,
   email: string,
   password: string,
 ): Promise<void> {
-  await page.goto(`${URLS.landing}/`);
-  await page.click('#register-tab');
+  await page.goto(`${URLS.landing}/register`);
   await page.fill('#username', username);
   await page.fill('#email', email);
   await page.fill('#password', password);

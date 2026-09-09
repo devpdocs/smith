@@ -1,0 +1,40 @@
+---
+import AuthLayout from '../layouts/AuthLayout.astro';
+---
+
+<AuthLayout title="Smith AI SaaS — Log in">
+  <section class="panel">
+    <form id="auth-form" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required />
+      </div>
+      <button id="submit" type="submit">Submit</button>
+      <p id="error" class="error" role="alert" hidden></p>
+    </form>
+    <p class="auth-switch">
+      Need an account? <a href="/register">Register</a>
+    </p>
+  </section>
+</AuthLayout>
+
+<script>
+  import { login } from '../lib/auth';
+  import { bindAuthForm, must } from '../lib/auth-form';
+
+  const strapiUrl = document.body.dataset.strapiUrl ?? 'http://localhost:1337';
+  const emailInput = must<HTMLInputElement>('email');
+  const passwordInput = must<HTMLInputElement>('password');
+
+  bindAuthForm({
+    submit: () => {
+      const identifier = emailInput.value.trim();
+      const password = passwordInput.value;
+      return login(strapiUrl, { identifier, password });
+    },
+  });
+</script>

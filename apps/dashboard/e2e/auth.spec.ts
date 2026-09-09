@@ -27,10 +27,10 @@ test.describe('S4: unauthenticated access redirects to login', () => {
   }) => {
     // No token in this fresh context.
     await page.goto(`${URLS.dashboard}/`);
-    await page.waitForURL(new RegExp(URLS.landing));
+    await page.waitForURL(new RegExp(`${URLS.landing}/login`));
 
-    // The landing login panel is shown, not any chat data.
-    await expect(page.getByRole('tab', { name: 'Log in' })).toBeVisible();
+    // The landing login form is shown, not any chat data.
     await expect(page.locator('#email')).toBeVisible();
+    await expect(page.locator('#password')).toBeVisible();
   });
 });
